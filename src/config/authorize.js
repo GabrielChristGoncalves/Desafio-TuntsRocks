@@ -1,8 +1,7 @@
 const { google } = require("googleapis");
-const { GoogleAuth } = require("google-auth-library");
 
 const getAuthSheets = async () => {
-  const auth = new GoogleAuth({
+  const auth = new google.auth.GoogleAuth({
     keyFile: "credentials.json",
     scopes: "https://www.googleapis.com/auth/spreadsheets",
   });
