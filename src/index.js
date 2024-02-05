@@ -28,19 +28,23 @@ function manipulateStudentsInformation(studentsData, minNumberOfClasses) {
     let gradeAverage = (element.p1 + element.p2 + element.p3) / 3;
     if (minNumberOfClasses < element.faltas) {
       element.situation = "Reprovado por falta";
-      element.finalAverage = gradeAverage.toFixed(2);
-      studentsApprovingStatus.push(element);
+      element.average = gradeAverage.toFixed(2);
     } else {
       if (gradeAverage >= 70) {
         element.situation = "Aprovado";
-        element.finalAverage = Math.ceil(gradeAverage);
-        studentsApprovingStatus.push(element);
+        element.average = Math.ceil(gradeAverage);
+      } else if (gradeAverage >= 50 && gradeAverage < 70) {
+        element.situation = "Exame final";
+        element.average = Math.ceil(gradeAverage);
+        element.finalAverage = Math.ceil(
+          (gradeAverage + (gradeAverage - 70)) / 2,
+        );
       } else {
         element.situation = "Reprovado por nota";
-        element.finalAverage = Math.ceil(gradeAverage);
-        studentsApprovingStatus.push(element);
+        element.average = Math.ceil(gradeAverage);
       }
     }
+    studentsApprovingStatus.push(element);
   }
   console.log(studentsApprovingStatus);
 }
