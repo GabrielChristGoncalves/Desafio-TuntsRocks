@@ -1,3 +1,4 @@
+const sendData = require("./config/sendData");
 const getData = require("./config/getData");
 
 async function convertStudentsArrayIntoObject() {
@@ -17,7 +18,6 @@ async function convertStudentsArrayIntoObject() {
     studentsData[1].toString().split(":")[1].trim(),
   );
   const minNumberOfClasses = totalNumberOfClasses / 4;
-  console.log(totalNumberOfClasses);
   manipulateStudentsInformation(objetos, minNumberOfClasses);
 }
 
@@ -33,6 +33,7 @@ function manipulateStudentsInformation(studentsData, minNumberOfClasses) {
       if (gradeAverage >= 70) {
         element.situation = "Aprovado";
         element.average = Math.ceil(gradeAverage);
+        element.finalAverage = 0;
       } else if (gradeAverage >= 50 && gradeAverage < 70) {
         element.situation = "Exame final";
         element.average = Math.ceil(gradeAverage);
@@ -46,7 +47,23 @@ function manipulateStudentsInformation(studentsData, minNumberOfClasses) {
     }
     studentsApprovingStatus.push(element);
   }
-  console.log(studentsApprovingStatus);
+  createResource(studentsApprovingStatus);
+}
+
+function createResource(students) {
+  const resource = {
+    values: students.map((student) => [
+      student.id,
+      student.name,
+      student.absences,
+      student.p1,
+      student.p2,
+      student.p3,
+      student.situation,
+      student.finalAverage,
+    ]),
+  };
+  sendData(resource);
 }
 
 convertStudentsArrayIntoObject();
