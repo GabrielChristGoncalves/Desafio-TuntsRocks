@@ -8,10 +8,9 @@ async function getData() {
       spreadsheetId,
       range: "engenharia_de_software",
     });
-    console.log(getRows.data.values);
     return getRows.data.values;
   } catch (error) {
-    console.error("Erro ao obter metadados:", error);
+    console.error("Failed to obtain metadata:", error);
   }
 }
 
