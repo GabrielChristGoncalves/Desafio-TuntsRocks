@@ -45,6 +45,7 @@ function manipulateStudentsInformation(studentsData, minNumberOfClasses) {
     if (minNumberOfClasses < element.absences) {
       element.situation = "Reprovado por falta";
       element.average = gradeAverage.toFixed(2);
+      element.finalAverage = 0;
     }
     studentsApprovingStatus.push(element);
   }
